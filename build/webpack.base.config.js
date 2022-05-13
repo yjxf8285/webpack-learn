@@ -12,5 +12,21 @@ module.exports = {
             template: './src/index.html' // 手动指定index.html的模板
         }),
         new CopyPlugin([{ from: "static", to: "static" }]), // 拷贝文件到编译后的目录
-    ]
+    ],
+    module: {
+        rules: [{
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        ['@babel/preset-env', {
+                            "useBuiltIns": "entry"
+                        }]
+                    ]
+                }
+            }
+        }]
+    }
 }
